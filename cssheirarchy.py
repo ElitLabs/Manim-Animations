@@ -1,4 +1,13 @@
-from manim import Scene, Code, Transform, ImageMobject, RIGHT, LEFT, DOWN, UP
+from manim import (
+    Scene,
+    Code,
+    Transform,
+    ImageMobject,
+    RIGHT,
+    LEFT,
+    ReplacementTransform,
+    UP,
+)
 import imgkit
 
 
@@ -23,7 +32,7 @@ html = """
 
 class Render(Scene):
     def render_imgs(self):
-        for i in range(1, 7):
+        for i in range(1, 10):
             imgkit.from_string(
                 html.replace("PLACEHOLDER", str(i)),
                 f"cssheirarchy/imgs/{i}.jpg",
@@ -36,7 +45,7 @@ class Render(Scene):
         code = []
         imgs = []
 
-        for i in range(1, 7):
+        for i in range(1, 10):
             code.append(
                 Code(
                     f"cssheirarchy/{i}.css",
@@ -44,17 +53,13 @@ class Render(Scene):
                     font_size=16,
                     line_spacing=0.5,
                     corner_radius=0.1,
-                    margin=0.2,
-                )
-                .to_edge(LEFT)
-                .align_on_border(UP)
+                ).to_edge(LEFT)
             )
 
             imgs.append(ImageMobject(f"cssheirarchy/imgs/{i}.jpg").to_edge(RIGHT))
 
-        mob_html = (
-            Code(
-                code="""
+        mob_html = Code(
+            code="""
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -68,19 +73,17 @@ class Render(Scene):
 	</body>
 </html>
 """,
-                language="html",
-                style="one-dark",
-                font_size=12,
-                line_spacing=0.5,
-                corner_radius=0.1,
-                margin=0.2,
-            )
-            .align_on_border(DOWN)
-            .to_edge(LEFT)
+            language="html",
+            style="one-dark",
+            font_size=18,
+            line_spacing=0.5,
+            corner_radius=0.1,
         )
 
-        self.add(code[0])
         self.add(mob_html)
+        self.wait(3)
+        self.play(ReplacementTransform(mob_html, code[0], run_time=2))
+        self.add(code[0])
         self.add(imgs[0])
         for i in range(1, 6):
             print(i)

@@ -1,0 +1,17 @@
+body {
+	background-color: grey;
+	font-size: 20px;
+}
+
+div {
+	background-color: green;
+	color: white;
+}
+
+h1 {
+	color: yellow;
+}
+
+h2 {
+	color: red;
+}
