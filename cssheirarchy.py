@@ -1,11 +1,4 @@
-from manim import (
-    Scene,
-    Code,
-    Transform,
-    ImageMobject,
-    RIGHT,
-    LEFT,
-)
+from manim import Scene, Code, Transform, ImageMobject, RIGHT, LEFT, DOWN, UP
 import imgkit
 
 
@@ -48,15 +41,46 @@ class Render(Scene):
                 Code(
                     f"cssheirarchy/{i}.css",
                     style="one-dark",
-                    font_size=18,
+                    font_size=16,
                     line_spacing=0.5,
                     corner_radius=0.1,
-                ).to_edge(LEFT)
+                    margin=0.2,
+                )
+                .to_edge(LEFT)
+                .align_on_border(UP)
             )
 
             imgs.append(ImageMobject(f"cssheirarchy/imgs/{i}.jpg").to_edge(RIGHT))
 
+        mob_html = (
+            Code(
+                code="""
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- ... -->
+	</head>
+	<body>
+		<h1>Hello</h1>
+		<div>
+            <h2>World</h2>
+        </div>
+	</body>
+</html>
+""",
+                language="html",
+                style="one-dark",
+                font_size=12,
+                line_spacing=0.5,
+                corner_radius=0.1,
+                margin=0.2,
+            )
+            .align_on_border(DOWN)
+            .to_edge(LEFT)
+        )
+
         self.add(code[0])
+        self.add(mob_html)
         self.add(imgs[0])
         for i in range(1, 6):
             print(i)
